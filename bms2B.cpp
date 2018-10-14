@@ -8,6 +8,7 @@
 #include <vector>
 #include "sndfile.hh"
 #include <fstream>
+#include <algorithm>
 
 #define EXTENSION ".txt"
 #define SYNCHRONIZE_SEQUENCE_LENGTH 8

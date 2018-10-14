@@ -106,7 +106,7 @@ int main(int argc, char **argv) {
 
     int input_signal_index = 0; // Index of a particular bit in input_signal
 
-
+    int real_rate = 0;
     for (int i = 0; i < SAMPLE_RATE; i++) {
         double multiplier = 0;
 
@@ -123,13 +123,14 @@ int main(int argc, char **argv) {
 
         for (int j = 0; j < samples_for_baud; ++j, ++i) {
             vec_buffer.push_back(static_cast<int &&>(multiplier * AMPLITUDE * sin(FREQ * 2 * i * M_PI)));
+            real_rate++;
         }
     }
 
     string output_file = argv[1];
     output_file += EXTENSION;
 
-    outputFile = SndfileHandle(output_file, SFM_WRITE, FORMAT, CHANELS, SAMPLE_RATE);
+    outputFile = SndfileHandle(output_file, SFM_WRITE, FORMAT, CHANELS, real_rate);
 
     outputFile.write(vec_buffer.data(), static_cast<sf_count_t>(vec_buffer.size()));
     delete[] buffer;

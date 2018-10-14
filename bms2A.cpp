@@ -111,9 +111,9 @@ int main(int argc, char **argv) {
         double multiplier = 0;
 
         if (input_signal_index < input_signal.size()) {
-            int bit0 = input_signal.at(static_cast<unsigned long>(input_signal_index));
+            auto bit0 = static_cast<unsigned int>(input_signal.at(static_cast<unsigned long>(input_signal_index)));
             ++input_signal_index;
-            int bit1 = input_signal.at(static_cast<unsigned long>(input_signal_index));
+            auto bit1 = static_cast<unsigned int>(input_signal.at(static_cast<unsigned long>(input_signal_index)));
             ++input_signal_index;
             int coded_symbol = code_symbol(bit0, bit1);
             multiplier = get_multiplier(coded_symbol);

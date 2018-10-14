@@ -104,16 +104,16 @@ int main(int argc, char **argv) {
     int samples_for_baud = static_cast<int>(SAMPLE_RATE / (SIZE_MULTIPLIER *
                                                            input_signal.size())); // Calculate sample rate used for modulation single baud
 
-    int input_signal_index = 0; // Index of a particular bit in input_signal
+    unsigned int input_signal_index = 0; // Index of a particular bit in input_signal
 
     int real_rate = 0;
     for (int i = 0; i < SAMPLE_RATE; i++) {
         double multiplier = 0;
 
         if (input_signal_index < input_signal.size()) {
-            auto bit0 = static_cast<unsigned int>(input_signal.at(static_cast<unsigned long>(input_signal_index)));
+            int bit0 = input_signal.at(static_cast<unsigned long>(input_signal_index));
             ++input_signal_index;
-            auto bit1 = static_cast<unsigned int>(input_signal.at(static_cast<unsigned long>(input_signal_index)));
+            int bit1 = input_signal.at(static_cast<unsigned long>(input_signal_index));
             ++input_signal_index;
             int coded_symbol = code_symbol(bit0, bit1);
             multiplier = get_multiplier(coded_symbol);

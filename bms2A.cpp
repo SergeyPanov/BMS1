@@ -18,7 +18,7 @@
 #define FORMAT (SF_FORMAT_WAV | SF_FORMAT_PCM_24)
 #define AMPLITUDE (1.0 * 0x7F000000)
 #define FREQ (1000.0 / SAMPLE_RATE)
-#define SIZE_MULTIPLIER 10
+#define SIZE_MULTIPLIER 15
 #define EXTENSION ".wav"
 using namespace std;
 
@@ -67,7 +67,7 @@ vector<int> read_input_vector(const string &path) {
     inFile.open(path);
     if (!inFile) {
         cerr << "Unable open file" << endl;
-        exit(1);
+        exit(EXIT_FAILURE);
     }
     inFile >> inp;
     inFile.close();
@@ -75,7 +75,7 @@ vector<int> read_input_vector(const string &path) {
     for (auto ch : inp) {
         if (ch != '0' && ch != '1') {
             cerr << "Invalid input" << endl;
-            exit(1);
+            exit(EXIT_FAILURE);
         }
         input_vector.push_back(ch - '0');
     }
@@ -89,7 +89,7 @@ vector<int> read_input_vector(const string &path) {
 int main(int argc, char **argv) {
     if (argc != 2) {
         cerr << "Invalid amount of parameters" << endl;
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     SndfileHandle outputFile;

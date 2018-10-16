@@ -84,14 +84,12 @@ AmplitudeForBaud get_amplitudes(const vector<vector<int> > &bauds){
 /*
  * Calculate length of single baud.
  */
-int get_baud_length(const int* buffer, int size){
+int get_baud_length(const int* buffer){
     int baud_length = 0;
-    for (int i = 0; i < size; ++i) {
-        if(buffer[i] == 0){
-            baud_length++;
-        }else{
-            break;
-        }
+    int i = 0;
+    while (buffer[i] == 0) {
+        baud_length++;
+        i++;
     }
 
     return baud_length;
@@ -100,15 +98,19 @@ int get_baud_length(const int* buffer, int size){
 /*
  * Chunk input wav by symbols.
  */
-vector<vector<int> > get_bauds(int *buffer, int size){
-    int baud_length = get_baud_length(buffer, size);
+vector<vector<int> > get_bauds(int *buffer, int frames){
+    int baud_length = get_baud_length(buffer);
     vector<vector<int> > chunked_buffer;
-    for (int i = 0; i < size; i+=baud_length) {    // Create vector of chunks(bauds)
+    int total_bauds = frames / baud_length;
+
+    for (int i = 0; i < frames; i+=baud_length) {
         vector<int> chunk;
+
         for (int j = i; j < baud_length + i; ++j) {    // Create single chunk(baud)
             chunk.push_back(buffer[j]);
         }
         chunked_buffer.push_back(chunk);
+
     }
     return chunked_buffer;
 }
@@ -206,6 +208,8 @@ int main(int argc, char** argv) {
     string path = argv[1];
     
     inputFile = SndfileHandle(path);
+
+    auto frames = inputFile.frames();
     
     sampleRate = inputFile.samplerate();
     
@@ -213,7 +217,7 @@ int main(int argc, char** argv) {
 
     inputFile.read(buffer, sampleRate);
 
-    const vector<vector<int> > bauds = get_bauds(buffer, sampleRate);
+    const vector<vector<int> > bauds = get_bauds(buffer, static_cast<int>(frames));
 
     const AmplitudeForBaud amplitudes = get_amplitudes(bauds);
 

@@ -130,7 +130,7 @@ int main(int argc, char **argv) {
     string output_file = argv[1];
     output_file += EXTENSION;
 
-    outputFile = SndfileHandle(output_file, SFM_WRITE, FORMAT, CHANELS, real_rate);
+    outputFile = SndfileHandle(output_file, SFM_WRITE, FORMAT, CHANELS, SAMPLE_RATE);
 
     outputFile.write(vec_buffer.data(), static_cast<sf_count_t>(vec_buffer.size()));
     delete[] buffer;

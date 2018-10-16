@@ -101,8 +101,6 @@ int get_baud_length(const int* buffer){
 vector<vector<int> > get_bauds(int *buffer, int frames){
     int baud_length = get_baud_length(buffer);
     vector<vector<int> > chunked_buffer;
-    int total_bauds = frames / baud_length;
-
     for (int i = 0; i < frames; i+=baud_length) {
         vector<int> chunk;
 

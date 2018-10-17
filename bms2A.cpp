@@ -58,7 +58,7 @@ double get_multiplier(int coded_symbol) {
 }
 
 /*
- * Read input vector from file.
+ * Read input.txt vector from file.
  */
 vector<int> read_input_vector(const string &path) {
     vector<int> input_vector;
@@ -74,7 +74,7 @@ vector<int> read_input_vector(const string &path) {
 
     for (auto ch : inp) {
         if (ch != '0' && ch != '1') {
-            cerr << "Invalid input" << endl;
+            cerr << "Invalid input.txt" << endl;
             exit(EXIT_FAILURE);
         }
         input_vector.push_back(ch - '0');
@@ -94,15 +94,16 @@ int main(int argc, char **argv) {
 
     SndfileHandle outputFile;
     int *buffer = new int[SAMPLE_RATE];
+    string path = argv[1];
 
     vector<int> vec_buffer;
 
-    vector<int> input_signal = read_input_vector(argv[1]);
+    vector<int> input_signal = read_input_vector(path);
 
     input_signal.insert(input_signal.begin(), SYNCHRONIZE_SEQUENCE.begin(), SYNCHRONIZE_SEQUENCE.end());
 
-    int samples_for_baud = static_cast<int>(SAMPLE_RATE / (SIZE_MULTIPLIER *
-                                                           input_signal.size())); // Calculate sample rate used for modulation single baud
+    auto samples_for_baud = static_cast<int>(SAMPLE_RATE / (SIZE_MULTIPLIER *
+                                                            input_signal.size())); // Calculate sample rate used for modulation single baud
 
     unsigned int input_signal_index = 0; // Index of a particular bit in input_signal
 
@@ -127,8 +128,14 @@ int main(int argc, char **argv) {
         }
     }
 
-    string output_file = argv[1];
+    std::reverse(path.begin(), path.end());
+    auto ind = static_cast<int>(path.find('.'));
+
+
+    string output_file = path.substr(static_cast<unsigned int>(ind+1), path.size());
+    std::reverse(output_file.begin(), output_file.end());
     output_file += EXTENSION;
+
 
     outputFile = SndfileHandle(output_file, SFM_WRITE, FORMAT, CHANELS, SAMPLE_RATE);
 

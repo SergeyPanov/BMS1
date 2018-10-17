@@ -96,7 +96,7 @@ int get_baud_length(const int* buffer){
 }
 
 /*
- * Chunk input wav by symbols.
+ * Chunk input.txt wav by symbols.
  */
 vector<vector<int> > get_bauds(int *buffer, int frames){
     int baud_length = get_baud_length(buffer);
@@ -184,7 +184,6 @@ void write_to_file(vector<int> demodulated, string path){
         cerr << "Can't open output file" << endl;
         exit(EXIT_FAILURE);
     }
-
     outfile.write(out.c_str(), out.size());
     outfile.close();
 }
@@ -195,7 +194,7 @@ void write_to_file(vector<int> demodulated, string path){
 int main(int argc, char** argv) {
 
     if (argc != 2){
-        cerr << "Invalid input parameters." << endl;
+        cerr << "Invalid input.txt parameters." << endl;
         exit(EXIT_FAILURE);
     }
 

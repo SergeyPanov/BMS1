@@ -11,6 +11,7 @@
 
 #include "sndfile.hh"
 #include <vector>
+#include <algorithm>
 
 
 #define SAMPLE_RATE 18000

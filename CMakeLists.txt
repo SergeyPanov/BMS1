@@ -7,9 +7,9 @@ set(CMAKE_CXX_STANDARD 11)
 find_package(SndFile REQUIRED)
 
 add_executable(BMS1
-    bms2A.cpp
+        bms1A.cpp
     )
 target_link_libraries(BMS1 PRIVATE SndFile::sndfile m)
 
-add_executable(BMS2 bms2B.cpp)
+add_executable(BMS2 bms1B.cpp)
 target_link_libraries(BMS2 PRIVATE SndFile::sndfile m)

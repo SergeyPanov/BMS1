@@ -5,11 +5,11 @@ LIBS=-lm
 all: bms2A bms2B
 
 
-bms2A: bms2A.cpp
+bms2A: bms1A.cpp
 	$(CC) $(CFLAGS) $(LIBS) $^ -o $@ /usr/local/lib/libsndfile.a
 
-bms2B: bms2B.cpp
+bms2B: bms1B.cpp
 	$(CC) $(CFLAGS) $(LIBS) $^ -o $@ /usr/local/lib/libsndfile.a
 
 clean:
-	rm -f *.o bms2A bms2B
+	rm -f *.o bms1A bms1B

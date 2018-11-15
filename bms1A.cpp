@@ -20,7 +20,7 @@
 #define FORMAT (SF_FORMAT_WAV | SF_FORMAT_PCM_24)
 #define AMPLITUDE (1.0 * 0x7F000000)
 #define FREQ (1000.0 / SAMPLE_RATE)
-#define SIZE_MULTIPLIER 15
+#define SIZE_MULTIPLIER 1
 #define EXTENSION ".wav"
 #define EXTENSION_REMOVER "\\.\\w*$"
 using namespace std;

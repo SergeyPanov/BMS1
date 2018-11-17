@@ -6,10 +6,10 @@ all: bms1A bms1B
 
 
 bms1A: bms1A.cpp
-	$(CC) $(CFLAGS) $(LIBS) $^ -o $@ /usr/local/lib/libsndfile.a
+	$(CC) $(CFLAGS) $(LIBS) $^ -o $@ libsndfile.a
 
 bms1B: bms1B.cpp
-	$(CC) $(CFLAGS) $(LIBS) $^ -o $@ /usr/local/lib/libsndfile.a
+	$(CC) $(CFLAGS) $(LIBS) $^ -o $@ libsndfile.a
 
 clean:
-	rm -f *.o bms1A bms1B
+	rm -f bms1A bms1B

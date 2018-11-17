@@ -105,18 +105,17 @@ int main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     }
 
-    SndfileHandle outputFile;
-    int *buffer = new int[SAMPLE_RATE];
-
     string path = argv[1];  // Get input file
 
     vector<int> vec_buffer;
 
     vector<int> input_signal = read_input_vector(path); // Read vector of ints form file.
+    SndfileHandle outputFile;
+    int *buffer = new int[SAMPLE_RATE];
 
     input_signal.insert(input_signal.begin(), SYNCHRONIZE_SEQUENCE.begin(), SYNCHRONIZE_SEQUENCE.end());    // Insert synchronization sequence.
 
-    auto samples_for_baud = static_cast<int>(SAMPLE_RATE * 2 / (input_signal.size())); // Calculate sample rate used for modulation single baud
+    auto samples_for_baud = static_cast<int>((SAMPLE_RATE) / (input_signal.size())); // Calculate sample rate used for modulation single baud
 
     unsigned int input_signal_index = 0; // Index of a particular bit in input_signal
 

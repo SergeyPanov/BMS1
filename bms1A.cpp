@@ -20,7 +20,6 @@
 #define FORMAT (SF_FORMAT_WAV | SF_FORMAT_PCM_24)
 #define AMPLITUDE (1.0 * 0x7F000000)
 #define FREQ (1000.0 / SAMPLE_RATE)
-#define SIZE_MULTIPLIER 1
 #define EXTENSION ".wav"
 #define EXTENSION_REMOVER "\\.\\w*$"
 using namespace std;
@@ -117,8 +116,7 @@ int main(int argc, char **argv) {
 
     input_signal.insert(input_signal.begin(), SYNCHRONIZE_SEQUENCE.begin(), SYNCHRONIZE_SEQUENCE.end());    // Insert synchronization sequence.
 
-    auto samples_for_baud = static_cast<int>(SAMPLE_RATE / (SIZE_MULTIPLIER *
-                                                            input_signal.size())); // Calculate sample rate used for modulation single baud
+    auto samples_for_baud = static_cast<int>(SAMPLE_RATE * 2 / (input_signal.size())); // Calculate sample rate used for modulation single baud
 
     unsigned int input_signal_index = 0; // Index of a particular bit in input_signal
 

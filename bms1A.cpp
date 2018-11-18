@@ -16,6 +16,7 @@
 
 
 #define SAMPLE_RATE 18000
+#define SAMPLES_FOR_BAUD 32
 #define CHANELS 1
 #define FORMAT (SF_FORMAT_WAV | SF_FORMAT_PCM_24)
 #define AMPLITUDE (1.0 * 0x7F000000)
@@ -115,7 +116,7 @@ int main(int argc, char **argv) {
 
     input_signal.insert(input_signal.begin(), SYNCHRONIZE_SEQUENCE.begin(), SYNCHRONIZE_SEQUENCE.end());    // Insert synchronization sequence.
 
-    auto samples_for_baud = static_cast<int>((SAMPLE_RATE) / (input_signal.size())); // Calculate sample rate used for modulation single baud
+//    auto samples_for_baud = static_cast<int>((SAMPLE_RATE) / (input_signal.size())); // Calculate sample rate used for modulation single baud
 
     unsigned int input_signal_index = 0; // Index of a particular bit in input_signal
 
@@ -133,7 +134,7 @@ int main(int argc, char **argv) {
             break;
         }
 
-        for (int j = 0; j < samples_for_baud; ++j, ++i) {
+        for (int j = 0; j < SAMPLES_FOR_BAUD; ++j, ++i) {
             vec_buffer.push_back(static_cast<int &&>(multiplier * AMPLITUDE * sin(FREQ * 2 * i * M_PI)));
         }
     }
